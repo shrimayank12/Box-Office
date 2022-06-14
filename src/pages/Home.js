@@ -30,8 +30,6 @@ const Home = () => {
     setSearchOptions(ev.target.value);
   }
 
-  console.log(searchOptions)
-
   const renderResult = () => {
     if(results && results.length === 0){
       return <div>No Results</div>
