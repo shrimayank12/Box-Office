@@ -1,9 +1,11 @@
 import React,{ useState } from 'react'
 import ActorGrid from '../components/actor/ActorGrid';
+import CustomRadio from '../components/CustomRadio';
 import MainPageLayout from '../components/MainPageLayout'
 import ShowGrid from '../components/show/ShowGrid';
 import { apiGet } from '../misc/config';
 import { useLastQuery } from '../misc/custom-hooks';
+import { RadioInputsWrapper, SearchButtonWrapper, SearchInput } from './Home.styled';
 
 const Home = () => {
   const [input, setInput] = useLastQuery();
@@ -45,35 +47,36 @@ const Home = () => {
 
   return (
     <MainPageLayout>
-      <input type='text' 
+      <SearchInput type='text' 
         placeholder='Search for Something'
         onChange={onInputChange} 
         onKeyDown={onKeyDown} 
         value={input}
       />
-      <div>
-        <label htmlFor='shows-search'>
-          Shows
-          <input 
-          id='shows-search' 
-          type='radio' 
-          value='shows' 
-          checked={isSearchShows} 
-          onChange={onRadioChange} 
+      <RadioInputsWrapper>
+        <div>
+          <CustomRadio 
+            label='Shows'
+            id='shows-search' 
+            value='shows' 
+            checked={isSearchShows} 
+            onChange={onRadioChange} 
           />
-        </label>
-        <label htmlFor='actors-search'>
-          Actors
-          <input 
-          id='actors-search' 
-          type='radio' 
-          value='people' 
-          checked={!isSearchShows}
-          onChange={onRadioChange} 
+        </div>
+        
+        <div>
+          <CustomRadio 
+            label='Actors'
+            id='actors-search' 
+            value='people' 
+            checked={!isSearchShows}
+            onChange={onRadioChange} 
           />
-        </label>
-      </div>
-      <button type='button' onClick={onSearch}>Search</button>
+        </div>
+      </RadioInputsWrapper>
+      <SearchButtonWrapper>
+        <button type='button' onClick={onSearch}>Search</button>
+      </SearchButtonWrapper>
       {renderResult()}
     </MainPageLayout>
   )
